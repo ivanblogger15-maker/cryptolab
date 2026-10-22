@@ -6,4 +6,12 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   base: './',
   plugins: [react(), tailwindcss()],
+  build: {
+    // GitHub Pages serves the `main` branch's /docs folder, so the production
+    // build goes straight there (no extra copy step, no CI required).
+    outDir: 'docs',
+    // Inline the (lazy-loaded) Brotli WASM as a data URL so the static build is
+    // fully self-contained: no extra binary asset to host or copy around.
+    assetsInlineLimit: 2_000_000,
+  },
 })

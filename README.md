@@ -47,8 +47,8 @@ npm install
 npm run dev        # http://localhost:5173
 npm run typecheck  # TypeScript
 npm test           # 69 tests de round-trip amb Vitest
-npm run build      # producció a dist/
-npm run preview    # serveix dist/
+npm run build      # producció a docs/
+npm run preview    # serveix docs/
 ```
 
 ### Stack
@@ -67,14 +67,22 @@ d'execució (excepte la descàrrega opcional del mòdul WASM de Brotli si el ser
 
 ## Desplegament a GitHub Pages
 
-El repositori inclou `.github/workflows/deploy.yml`. Per publicar-lo:
+La build de producció s'escriu directament a `docs/`, i GitHub Pages ja està configurat per servir
+aquesta carpeta de la branca `main`. Cada vegada que vulguis publicar canvis:
 
-1. Puja el codi a `main`.
-2. A **Settings → Pages**, tria **Source: GitHub Actions**.
-3. El workflow `Deploy to GitHub Pages` compila i publica `dist/` a cada push.
+```bash
+npm run build
+git add docs
+git commit -m "build: publica la versió web"
+git push
+```
 
-Com que `vite.config.ts` fa servir `base: './'`, la build també funciona en un servidor local, en un
-subdirectori o en un domini propi sense canvis.
+No cal cap servidor ni cap secret: tot són fitxers estàtics. Com que `vite.config.ts` fa servir
+`base: './'`, la build també funciona en un servidor local, en un subdirectori o en un domini propi
+sense canvis.
+
+Si prefereixes compilar amb GitHub Actions, afegeix un workflow que executi `npm ci && npm run build`
+i publiqui `docs/` (cal un token amb l'scope `workflow` per pujar fitxers a `.github/workflows/`).
 
 ---
 
