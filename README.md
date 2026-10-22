@@ -65,27 +65,6 @@ d'execució (excepte la descàrrega opcional del mòdul WASM de Brotli si el ser
 
 ---
 
-## Desplegament a GitHub Pages
-
-La build de producció s'escriu directament a `docs/`, i GitHub Pages ja està configurat per servir
-aquesta carpeta de la branca `main`. Cada vegada que vulguis publicar canvis:
-
-```bash
-npm run build
-git add docs
-git commit -m "build: publica la versió web"
-git push
-```
-
-No cal cap servidor ni cap secret: tot són fitxers estàtics. Com que `vite.config.ts` fa servir
-`base: './'`, la build també funciona en un servidor local, en un subdirectori o en un domini propi
-sense canvis.
-
-Si prefereixes compilar amb GitHub Actions, afegeix un workflow que executi `npm ci && npm run build`
-i publiqui `docs/` (cal un token amb l'scope `workflow` per pujar fitxers a `.github/workflows/`).
-
----
-
 ## Seguretat i límits
 
 - **Zero servidors.** No hi ha backend, ni analítiques, ni cap petició amb les teves dades.
